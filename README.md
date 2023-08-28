@@ -51,7 +51,7 @@ General trees are unordered tree data structures where the root node has minimum
 
 The General trees have no constraint placed on their hierarchy. The root node thus acts like the superset of all the other subtrees.
 
-(![logo]https://www.tutorialspoint.com/data_structures_algorithms/images/tree_data_structure.jpg)
+![logo](https://www.tutorialspoint.com/data_structures_algorithms/images/tree_data_structure.jpg)
 
 Binary Trees
 
