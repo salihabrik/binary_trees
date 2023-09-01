@@ -5,24 +5,26 @@
  *
  * @tree: Pointer to the root node of the tree to rotate.
  *
- * Return: Pointer to the new root node after rotation.
+ * Return: Pointer to the new root node of the tree once rotated.
  */
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
 {
-binary_tree_t *new_root;
+binary_tree_t *new_root, *new_left;
 
 if (tree == NULL || tree->right == NULL)
-	return (NULL);
+return (NULL);
 
-	new_root = tree->right;
-	tree->right = new_root->left;
-	new_root->left = tree;
+new_root = tree->right;
+new_left = new_root->left;
+new_root->left = tree;
+tree->right = new_left;
 
-	if (tree->right)
-		tree->right->parent = tree;
 
-	new_root->parent = tree->parent;
-	tree->parent = new_root;
+if (new_left != NULL)
+new_left->parent = tree;
 
-	return (new_root);
+new_root->parent = tree->parent;
+tree->parent = new_root;
+
+return (new_root);
 }
