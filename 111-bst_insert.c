@@ -1,59 +1,48 @@
 #include "binary_trees.h"
 
 /**
- * bst_insert - Inserts a value into a Binary Search Tree
- *
- * @tree: A double pointer to the root node of the BST.
- * @value: The value to insert into the BST.
- *
- * Return: A pointer to the created node, or NULL on failure.
+ * bst_insert - inserts a value in a Binary Search Tree
+ * @tree: a double pointer to the root node of the BST to insert the value
+ * @value: the value to store in the node to be inserted
+ * Return: A pointer to the created node
+ *         NULL on failure
  */
 bst_t *bst_insert(bst_t **tree, int value)
 {
-    bst_t *new_node, *current;
+	bst_t *tmp = NULL;
+	bst_t *second = NULL;
+	bst_t *new = NULL;
 
-    if (!tree)
-        return (NULL);
+	if (!tree)
+		return (NULL);
+	if (*tree == NULL)
+		return (*tree = binary_tree_node(NULL, value));
 
-    if (*tree == NULL)
-    {
-        new_node = binary_tree_node(NULL, value);
-        if (!new_node)
-            return (NULL);
-        *tree = new_node;
-        return (new_node);
-    }
+	tmp = *tree;
+	while (tmp)
+	{
+		second = tmp;
+		if (value < tmp->n)
+			tmp = tmp->left;
+		else if (value > tmp->n)
+			tmp = tmp->right;
+		else if (value == tmp->n)
+			return (NULL);
+	}
 
-    current = *tree;
-    while (current)
-    {
-        if (value == current->n)
-            return (NULL);
+	new = binary_tree_node(NULL, value);
+	if (second == NULL)
+		second = new;
+	else if (value < second->n)
+	{
+		second->left = new;
+		new->parent = second;
+	}
+	else
+	{
+		second->right = new;
+		new->parent = second;
+	}
 
-        if (value < current->n)
-        {
-            if (!current->left)
-            {
-                new_node = binary_tree_node(current, value);
-                if (!new_node)
-                    return (NULL);
-                current->left = new_node;
-                return (new_node);
-            }
-            current = current->left;
-        }
-        else
-        {
-            if (!current->right)
-            {
-                new_node = binary_tree_node(current, value);
-                if (!new_node)
-                    return (NULL);
-                current->right = new_node;
-                return (new_node);
-            }
-        current = current->right;
-    }
+	return (new);
 }
-
-return (NULL);
